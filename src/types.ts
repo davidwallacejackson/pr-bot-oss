@@ -23,8 +23,13 @@ export interface VCS {
   _type: string;
 
   getPR(prID: PRID): Promise<PR | null>;
-  getCommentsByPRID(prID: PRID): Promise<Comment[] | null>;
+
+  getCommentsByPRID(prID: PRID): Promise<Comment[]>;
+  getCommentThread(prID: PRID, commentID: CommentID): Promise<Comment[]>;
+  getMentions(commentBody: string): Promise<UserID[]>;
+
   getReviewRequestsByPRID(prID: PRID): Promise<ReviewRequest[]>;
+
   getReviewsByPRID(prID: PRID): Promise<Review[]>;
 
   createComment(comment: Comment): Promise<void>;
@@ -42,6 +47,7 @@ export interface Comment {
 export type ReviewRequestID = Tagged<string, "ReviewRequestID">;
 export interface ReviewRequest {
   id: ReviewRequestID;
+  pr: PRID;
   userRequestingReviewID: UserID;
   userWhoseReviewIsRequestedID: UserID;
 }
@@ -53,7 +59,7 @@ export interface Review {
   pr: PRID;
   reviewer: UserID;
   status: ReviewStatus;
-  body: string;
+  body?: string;
 }
 
 export interface ChatService {

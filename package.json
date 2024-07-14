@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/lodash": "^4.17.6",
+    "lodash": "^4.17.21",
     "type-fest": "^4.21.0"
   }
 }
